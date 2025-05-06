@@ -3,14 +3,14 @@ llm:
   temperature: 0.1
 
 embedding:
-  model: text-embedding-3-small
+  model: text-embedding-3-large
   batch_size: 100
 
 indexing:
-  chunk_size: 1024
+  chunk_size: 4096
   text_splitter: sentence
-  similarity_top_k: 12
-  response_mode: tree_summarize
+  similarity_top_k: 4
+  response_mode: refine
 
 storage:
   persist_dir: storage
