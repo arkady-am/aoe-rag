@@ -85,7 +85,20 @@ class AoeRag:
         self._index = load_index_from_storage(storage_context)
 
     def query(self, query_text: str) -> str:
-        """Query the index and return the response."""
+        """Query the index and return the response.
+
+        Args:
+            query_text: The query string to process
+
+        Returns:
+            String response from the RAG system
+
+        Raises:
+            ValueError: If the index has not been initialized
+        """
+        if self._index is None:
+            raise ValueError("Index not initialized. Call initialize_index() first.")
+
         query_engine = self._index.as_query_engine(
             response_mode=self.config.indexing.response_mode,
             similarity_top_k=self.config.indexing.similarity_top_k,

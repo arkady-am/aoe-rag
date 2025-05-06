@@ -2,7 +2,6 @@ import pytest
 import os
 import shutil
 
-from regex import T
 from aoe_rag import AoeRag
 from aoe_rag_config import AoeRagConfig
 
@@ -92,14 +91,13 @@ def test_response_format(rag):
 
 
 def test_query_with_no_index(rag):
-    """Test querying when no index is initialized."""
+    """Test that querying without an initialized index raises an exception."""
     # Ensure index is None
     rag._index = None
 
-    # Query should automatically initialize the index
-    response = rag.query("What is AOE?")
-    assert response is not None
-    assert rag._index is not None
+    # Query should raise an exception
+    with pytest.raises(ValueError, match="Index not initialized"):
+        rag.query("What is AOE?")
 
 
 def test_multiple_queries(rag):
