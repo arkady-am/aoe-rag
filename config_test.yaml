@@ -1,0 +1,19 @@
+llm:
+  model: gpt-4.1-nano-2025-04-14
+  temperature: 0.0
+
+embedding:
+  model: text-embedding-3-small
+  batch_size: 10
+
+indexing:
+  chunk_size: 512
+  text_splitter: sentence
+  similarity_top_k: 5
+  response_mode: tree_summarize
+
+storage:
+  persist_dir: test_storage
+
+data:
+  source_dir: test_data
