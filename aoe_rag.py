@@ -69,7 +69,8 @@ class AoeRag:
         persist_dir = self.config.storage.persist_dir
         chunk_size = self.config.indexing.chunk_size
 
-        print(f"💥 Creating new index from {source_dir}")
+        print(f"💥 Neuer Index wird erstellt mit Dateien aus '{source_dir}'")
+
         documents = SimpleDirectoryReader(source_dir).load_data()
         self._index = VectorStoreIndex.from_documents(documents, chunk_size=chunk_size)
         self._index.storage_context.persist(persist_dir=persist_dir)
@@ -77,7 +78,9 @@ class AoeRag:
     def _load_index(self) -> None:
         """Load an existing vector index from storage."""
         persist_dir = self.config.storage.persist_dir
-        print(f"📦 Loading existing index from {persist_dir}")
+
+        print(f"📦 Index wird geladen aus '{persist_dir}'")
+
         storage_context = StorageContext.from_defaults(persist_dir=persist_dir)
         self._index = load_index_from_storage(storage_context)
 
