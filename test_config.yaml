@@ -10,7 +10,25 @@ indexing:
   chunk_size: 2048
   text_splitter: sentence
   similarity_top_k: 5
-  response_mode: tree_summarize
+  response_mode: refine
+  text_qa_template: |
+    Kontextinformationen sind unten aufgeführt.
+    ---------------------
+    {context_str}
+    ---------------------
+    Gegeben sind die Kontextinformationen und kein Vorwissen, beantworte die Anfrage.
+    Anfrage: {query_str}
+    Antwort:
+  refine_template: |
+    Die ursprüngliche Anfrage lautet wie folgt: {query_str}
+    Wir haben eine vorhandene Antwort bereitgestellt: {existing_answer}
+    Wir haben die Möglichkeit, die vorhandene Antwort (nur wenn nötig) mit etwas mehr Kontext unten zu verfeinern.
+    ------------
+    {context_msg}
+    ------------
+    Mit Hilfe des neuen Kontexts, verfeinere die ursprüngliche Antwort, um die Anfrage besser zu beantworten.
+    Wenn der Kontext nicht relevant ist, gib die ursprüngliche Antwort zurück.
+    Verfeinerte Antwort:
 
 storage:
   persist_dir: test_storage # mind test constants

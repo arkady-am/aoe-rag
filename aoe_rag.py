@@ -1,5 +1,5 @@
 import os
-from typing import Optional, Dict, Any
+from typing import Optional
 
 from llama_index.core import (
     VectorStoreIndex,
@@ -11,6 +11,7 @@ from llama_index.llms.openai import OpenAI
 from llama_index.core import Settings
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core.base.base_query_engine import BaseQueryEngine
 
 from aoe_rag_config import AoeRagConfig
 
@@ -84,6 +85,18 @@ class AoeRag:
         storage_context = StorageContext.from_defaults(persist_dir=persist_dir)
         self._index = load_index_from_storage(storage_context)
 
+    def _get_query_engine(self) -> BaseQueryEngine:
+        """Get the query engine for the index."""
+        if self._index is None:
+            raise ValueError("Index not initialized. Call initialize_index() first.")
+
+        return self._index.as_query_engine(
+            response_mode=self.config.indexing.response_mode,
+            similarity_top_k=self.config.indexing.similarity_top_k,
+            text_qa_template=self.config.indexing.text_qa_template,
+            refine_template=self.config.indexing.refine_template,
+        )
+
     def query(self, query_text: str) -> str:
         """Query the index and return the response.
 
@@ -96,12 +109,8 @@ class AoeRag:
         Raises:
             ValueError: If the index has not been initialized
         """
-        if self._index is None:
-            raise ValueError("Index not initialized. Call initialize_index() first.")
 
-        query_engine = self._index.as_query_engine(
-            response_mode=self.config.indexing.response_mode,
-            similarity_top_k=self.config.indexing.similarity_top_k,
-        )
+        query_engine = self._get_query_engine()
+
         response = query_engine.query(query_text)
         return str(response)

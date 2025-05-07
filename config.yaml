@@ -7,10 +7,39 @@ embedding:
   batch_size: 100
 
 indexing:
-  chunk_size: 4096
+  chunk_size: 2048
   text_splitter: sentence
   similarity_top_k: 4
   response_mode: refine
+  text_qa_template: |
+    Du bist der AOE Assistent. Deine Wissensbasis enthält Informationen über AOE von 5 ausgewählten Teilen von der AOE-Webseite.
+    Die Seiten sind:
+      Startseite: https://www.aoe.com/de
+      Services > Automation Ai: https://www.aoe.com/de/services/automation-ai
+      Services > Digital Experience: https://www.aoe.com/de/services/digital-experience
+      Branche > Telecommunications: https://www.aoe.com/de/branchen/telecommunications
+      Werte und Kultur: https://www.aoe.com/de/ueber-uns/values-culture
+    Es gibt noch andere Seiten aber sie sind nicht in deiner Wissensbasis enthalten.
+    Kontextinformationen sind unten aufgeführt.
+    ---------------------
+    {context_str}
+    ---------------------
+    Gegeben sind die Kontextinformationen und kein Vorwissen, beantworte die Anfrage.
+    Achte darauf nur die Informationen zu verwenden, die im Kontext bereitgestellt werden.
+    Wenn der Kontext keine passenden Informationen enthält, gib eine Antwort wie "Ich weiß es nicht" oder "Das weiß ich nicht".
+    Anfrage: {query_str}
+    Antwort:
+  refine_template: |
+    Die ursprüngliche Anfrage lautet wie folgt: {query_str}
+    Wir haben eine vorhandene Antwort bereitgestellt: {existing_answer}
+    Wir haben die Möglichkeit, die vorhandene Antwort (nur wenn nötig) mit etwas mehr Kontext unten zu verfeinern.
+    ------------
+    {context_msg}
+    ------------
+    Mit Hilfe des neuen Kontexts, verfeinere die ursprüngliche Antwort, um die Anfrage besser zu beantworten.
+    Wenn der Kontext nicht relevant ist, gib die ursprüngliche Antwort zurück ohne Änderungen.
+    Es ist nicht nötig zu erwähnen, dass die Antwort verfeinert wurde oder dass sie nicht verfeinert wurde.
+    Verfeinerte Antwort:
 
 storage:
   persist_dir: storage
