@@ -154,7 +154,8 @@ Momentan ist die Anwendung auf deutsche Inhalte beschränkt.
     - eine API z.B. mit [`FastAPI`](https://fastapi.tiangolo.com/)
 - Ein Docker-Container für die Anwendung, um sie einfach zu deployen
     - Die Daten sollten in einem persistent Volume gespeichert werden, damit sie nicht verloren gehen, wenn der Container neu gestartet wird
-- Ein CI/CD-Workflow, der die Tests automatisch ausführt und die Anwendung bei Änderungen automatisch deployed
+- Ein CI/CD-Workflow, der die Tests automatisch ausführt existiert
+    - er sollte auch die Anwendung automatisch deployen, wenn die Tests erfolgreich sind
 - Logging und Metriken zur Überwachung der Qualität der Antworten und der Stabilität der Anwendung
     - Ein Monitoring-Tool wie der ELK-Stack
 - Dynamische Abfrage der AOE-Website (je nachdem wie oft die Inhalte aktualisiert werden)
