@@ -138,7 +138,7 @@ Ich sehe zwei Ansätze für Agenten:
     - Für jeden Bereich der AOE-Webseite gibt es einen Agenten, der sich in diesem Bereich auskennt.
     - Ein Meta-Agent koordiniert die Agenten und leitet die Anfragen an den passenden Agent weiter.
     - Der Ansatz lässt sich mit der Idee von oben kombinieren, dass die Agenten auch die AOE-Webseite abfragen können, um ihre Daten aktuell zu halten.
-    - Die Unteragenten könnten auf dauer auch um Features erweitert werden, wie z.B. Kundenanfragen anzunehmen und weiterzuleiten.
+    - Die Unteragenten könnten auf Dauer auch um Features erweitert werden, wie z.B. Kundenanfragen anzunehmen und weiterzuleiten.
 
 ## Einschränkungen
 
@@ -154,7 +154,7 @@ Momentan ist die Anwendung auf deutsche Inhalte beschränkt.
     - eine API z.B. mit [`FastAPI`](https://fastapi.tiangolo.com/)
 - Ein Docker-Container für die Anwendung, um sie einfach zu deployen
     - Die Daten sollten in einem persistent Volume gespeichert werden, damit sie nicht verloren gehen, wenn der Container neu gestartet wird
-- Ein CI/CD-Workflow, um die Anwendung einfach zu deployen
+- Ein CI/CD-Workflow, der die Tests automatisch ausführt und die Anwendung bei Änderungen automatisch deployed
 - Logging und Metriken zur Überwachung der Qualität der Antworten und der Stabilität der Anwendung
     - Ein Monitoring-Tool wie der ELK-Stack
 - Dynamische Abfrage der AOE-Website (je nachdem wie oft die Inhalte aktualisiert werden)
